@@ -3,7 +3,7 @@
     <div class="row q-ma-xl">
       <div class="col-6">
         <h1 class="text-h3">Login Page</h1>
-        <q-btn @click="register" class="q-mt-lg" color="amber-9" label="Register" />
+        <q-btn @click="login" class="q-mt-lg" color="amber-9" label="Login" />
       </div>
       <div class="col-6">
         <div class="col-10">
@@ -30,21 +30,36 @@
 </template>
 
 <script setup>
+import { Notify } from 'quasar'
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-// const router = useRouter()
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 const isPwd = ref(true)
 
-api.post('/oauth/token', {
-  grant_type: 'password',
-  client_id: 2,
-  client_secret: '3zwKBU7c2pOck6waR6XWrVy6YUxp0lsXFHB5WO6y',
-  username: email.value,
-  password: password.value,
-  scope: '*',
-})
+function login() {
+  api
+    .post('/oauth/token', {
+      grant_type: 'password',
+      client_id: 2,
+      client_secret: '3zwKBU7c2pOck6waR6XWrVy6YUxp0lsXFHB5WO6y',
+      username: email.value,
+      password: password.value,
+      scope: '*',
+    })
+    .then((r) => {
+      Notify.create({
+        type: 'positive',
+        position: 'top',
+        message: r.data.message,
+      })
+      router.push('/profile')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
 </script>
