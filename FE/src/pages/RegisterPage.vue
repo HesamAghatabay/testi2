@@ -59,6 +59,7 @@ function register() {
     .then((r) => {
       Notify.create({
         type: 'positive',
+        position : 'top',
         message: r.data.message,
       })
       router.push('/login')
@@ -66,6 +67,7 @@ function register() {
     .catch((e) => {
       Notify.create({
         type: 'negative',
+        position : 'top',
         message: 'register in catch',
       })
       console.log(e)
