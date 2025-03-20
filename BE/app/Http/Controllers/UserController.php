@@ -31,9 +31,9 @@ class UserController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "email" => "required|unique:User,email|email",
-            "mobile" => "required|integer",
-            "password" => "required|password|min:8",
+            "email" => "required|unique:Users,email",
+            "mobile" => "required",
+            "password" => "required|min:8",
         ]);
         $user = User::create([
             "name" => $request->name,
@@ -43,7 +43,8 @@ class UserController extends Controller
         ]);
         return response()->json([
             'message' => "user register",
-        ]);
+            'user' => $user,
+        ], 201);
     }
 
     /**

@@ -58,14 +58,14 @@ function register() {
     })
     .then((r) => {
       Notify.create({
-        type: 'pos',
+        type: 'positive',
         message: r.data.message,
       })
       router.push('/login')
     })
     .catch((e) => {
       Notify.create({
-        type: 'ne',
+        type: 'negative',
         message: 'register in catch',
       })
       console.log(e)
