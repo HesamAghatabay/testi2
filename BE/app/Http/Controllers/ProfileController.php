@@ -53,7 +53,7 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Profile $profile)
+    public function edit(Request $request, $id)
     {
         //
     }
@@ -61,9 +61,16 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Profile $profile)
+    public function update(Request $request, $id)
     {
-        //
+        $profile = User::find($id)->profile;
+        $profile->update([
+            'full_name' => $request->full_name,
+            'address' => $request->address,
+            'city' => $request->city,
+            'status' => $request->status,
+        ]);
+        return response()->json(['message' => 'profile updated'], 200);
     }
 
     /**

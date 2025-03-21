@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
     <div class="row q-mt-xl">
+      <q-inner-loading size="65px" color="red-8" :showing="loading" />
       <div class="col-5">
         <h1 class="text-h3">Edit Profile Page</h1>
         <q-btn color="green" label="Update" @click="updateProfile" />
@@ -27,8 +28,9 @@ const fullName = ref('')
 const address = ref('')
 const city = ref('')
 const status = ref('')
-
+const loading = ref(false)
 onMounted(() => {
+  loading.value = true
   const userId = route.params.id
   api
     .get(`api/profile/${userId}`)
@@ -41,6 +43,9 @@ onMounted(() => {
     })
     .catch((e) => {
       console.log(e)
+    })
+    .finally(() => {
+      loading.value = false
     })
 })
 function updateProfile() {
@@ -57,7 +62,7 @@ function updateProfile() {
         type: 'positive',
         message: 'user profile updated ' + r.data.message,
       })
-      router.push('profile')
+      router.push('/profile')
     })
     .catch((e) => {
       console.log(e)

@@ -9,13 +9,15 @@
         <p>{{ user?.profile.city || 'شهر ثبت نشده' }}</p>
       </div>
       <div class="col-4">
-        <q-btn color="purple-8" label="Edit Profile" @click="GoToEditProfile(user.id)"/>
+        <q-btn color="purple-8" label="Edit Profile" @click="GoToEditProfile(user.id)" />
+        <q-btn color="purple-8" label="Edit Profile" @click="DeleteProfile(user.id)" />
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
+import { Notify } from 'quasar'
 import { api } from 'src/boot/axios'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -38,7 +40,21 @@ onMounted(() => {
       userprofile.value = false
     })
 })
-function GoToEditProfile(userId){
-router.push(`edit-profile/${userId}`)
+function GoToEditProfile(userId) {
+  router.push(`edit-profile/${userId}`)
+}
+function DeleteProfile(userId) {
+  api
+    .delete(`api/profile/${userId}`)
+    .then((r) => {
+      Notify.create({
+        type: 'positive',
+        message: 'profile deleted ' + r.data.message,
+      })
+      router.push('/profile')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
 }
 </script>
