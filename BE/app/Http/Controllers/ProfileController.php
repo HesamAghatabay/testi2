@@ -10,9 +10,14 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // $profile = $request->user()->profile();
+        // if (!$profile) {
+        //     return response()->json(['error' => 'profile not found'], 401);
+        // }
+        // return response()->json($profile, 200);
+        return $request->user();
     }
 
     /**

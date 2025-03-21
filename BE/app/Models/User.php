@@ -50,8 +50,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function porfile()
+    public function profile()
     {
         return $this->hasOne(Profile::class);
     }
+    protected $with = ['profile'];
 }
