@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -39,9 +40,14 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Profile $profile)
+    public function show(Profile $profile, $id)
     {
-        //
+        $user = User::find($id);
+        $profile = $user->profile;
+        if (!$user) {
+            return response()->json(['message' => 'user not found'], 401);
+        }
+        return response()->json($profile, 200);
     }
 
     /**

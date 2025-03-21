@@ -9,7 +9,7 @@
         <p>{{ user?.profile.city || 'شهر ثبت نشده' }}</p>
       </div>
       <div class="col-4">
-        <q-btn color="purple-8" label="Edit Profile" @click="editprofile(user.id)"/>
+        <q-btn color="purple-8" label="Edit Profile" @click="GoToEditProfile(user.id)"/>
       </div>
     </div>
   </q-page>
@@ -38,7 +38,7 @@ onMounted(() => {
       userprofile.value = false
     })
 })
-function editprofile(userId){
-router.push(`'edit-profile/${userId}'`)
+function GoToEditProfile(userId){
+router.push(`edit-profile/${userId}`)
 }
 </script>
