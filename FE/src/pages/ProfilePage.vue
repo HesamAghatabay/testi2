@@ -2,11 +2,14 @@
   <q-page padding>
     <h1 class="text-h3">Profile Page</h1>
     <q-inner-loading :showing="userprofile" color="red-8" size="65px" />
-    <div class="row">
-      <div class="col-3" >
-        <p>{{ profile?.profile.full_name || ' کاربر وجود ندارد ' }}</p>
-        <!-- <p>{{ profile?.name || ' کاربر وجود ندارد ' }}</p> -->
-        <p>{{ profile?.profile.city || 'شهر ثبت نشده'}}</p>
+    <div class="row q-ma-md">
+      <div class="col-4">
+        <p>{{ user?.profile.full_name || ' کاربر وجود ندارد ' }}</p>
+        <p>{{ user?.profile.address || 'آدرس وارد نشده' }}</p>
+        <p>{{ user?.profile.city || 'شهر ثبت نشده' }}</p>
+      </div>
+      <div class="col-4">
+        <q-btn color="purple-8" label="Edit Profile" @click="editprofile(user.id)"/>
       </div>
     </div>
   </q-page>
@@ -15,15 +18,17 @@
 <script setup>
 import { api } from 'src/boot/axios'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const userprofile = ref(false)
-const profile = ref(null)
+const user = ref(null)
+const router = useRouter()
 onMounted(() => {
   userprofile.value = true
   api
     .get('api/profile')
     .then((r) => {
-      profile.value = r.data
+      user.value = r.data
       console.log(r.data)
     })
     .catch((e) => {
@@ -33,4 +38,7 @@ onMounted(() => {
       userprofile.value = false
     })
 })
+function editprofile(userId){
+router.push(`'edit-profile/${userId}'`)
+}
 </script>
