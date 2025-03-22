@@ -10,7 +10,7 @@
       </div>
       <div class="col-4">
         <q-btn color="purple-8" label="Edit Profile" @click="GoToEditProfile(user.id)" />
-        <q-btn color="purple-8" label="Edit Profile" @click="DeleteProfile(user.id)" />
+        <q-btn color="purple-8" class="q-mx-sm" label="Delete Profile" @click="DeleteProfile(user.id)" />
       </div>
     </div>
   </q-page>
