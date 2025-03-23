@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <h1 class="text-h3">Profile Page</h1>
-    <q-inner-loading :showing="userprofile" color="red-8" size="65px" />
+    <q-inner-loading :showing="loading" color="red-8" size="65px" />
     <div class="row q-ma-md">
       <div class="col-4">
         <p>{{ user?.profile.full_name || ' کاربر وجود ندارد ' }}</p>
@@ -10,7 +10,12 @@
       </div>
       <div class="col-4">
         <q-btn color="purple-8" label="Edit Profile" @click="GoToEditProfile(user.id)" />
-        <q-btn color="purple-8" class="q-mx-sm" label="Delete Profile" @click="DeleteProfile(user.id)" />
+        <q-btn
+          color="purple-8"
+          class="q-mx-sm"
+          label="Delete Profile"
+          @click="DeleteProfile(user.id)"
+        />
       </div>
     </div>
   </q-page>
@@ -22,11 +27,11 @@ import { api } from 'src/boot/axios'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const userprofile = ref(false)
+const loading = ref(false)
 const user = ref(null)
 const router = useRouter()
 onMounted(() => {
-  userprofile.value = true
+  loading.value = true
   api
     .get('api/profile')
     .then((r) => {
@@ -37,7 +42,7 @@ onMounted(() => {
       console.error(e)
     })
     .finally(() => {
-      userprofile.value = false
+      loading.value = false
     })
 })
 function GoToEditProfile(userId) {
