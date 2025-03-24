@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Nette\Utils\Random;
 
@@ -13,21 +14,21 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 Route::resource('register', UserController::class);
 Route::middleware('auth:api')->resource('profile', ProfileController::class);
+
 Route::post('/sendVerify', function (Request $request) {
     $code = rand(1000, 9999);
     if ($user = User::where('mobile', $request->username)->first()) {
         $user->password = $code;
         $user->save();
-        return response()->json(['status' => true, 'message' => 'user already exist']);
     } else {
         $user = User::create([
             'name' => '',
             'email' => '',
             'mobile' => $request->username,
-            'password' => $code,
+            'password' => Hash::make($code),
         ]);
     }
-    return $user->sendVerifyCode($code, $request->username);
+    // return $user->sendVerifyCode($code, $request->username);
     if ($user->sendVerifyCode($code, $request->username)) {
         return response()->json(['status' => true], 200);
     } else {
