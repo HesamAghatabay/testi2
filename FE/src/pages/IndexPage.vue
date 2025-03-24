@@ -5,7 +5,8 @@
     <q-btn label="Register" color="amber-9" to="/register" />
     <q-btn label="Login" class="q-mx-sm" color="blue-8" to="/login" />
     <q-btn label="Logout" class="q-mx-sm" color="red-8" @click="logout" />
-    <q-btn label="Profile" color="green-7" to="/profile" />
+    <q-btn label="Profile" class="q-mx-sm" color="green-7" to="/profile" />
+    <q-btn label="Send Verify Page" color="purple-7" to="/sendVerify" />
   </q-page>
 </template>
 
