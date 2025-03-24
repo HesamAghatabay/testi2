@@ -19,6 +19,11 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    public function findForPassport($identifier)
+    {
+        return $this->orwhere('email', $identifier)
+            ->orWhere('mobile', $identifier)->first();
+    }
     protected $fillable = [
         'name',
         'email',
@@ -55,4 +60,31 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
     protected $with = ['profile'];
+
+    public function sendVerifyCode($code, $mobile)
+    {
+        $client = new \GuzzleHttp\Client([
+            'verify' => false // Disable SSL certificate verification
+        ]);
+
+        $headers = [
+            'apikey' => 'OWU3ZGY5YjMtOGFmNC00MzUwLWFhZjktZjQ1ZTcxM2ZjNzE1NTgyMTI2YzYxODI4OGZjYzgyMjI5NzVmYjY5MTk4OWU=',
+            'accept' => '*/*',
+            'Content-Type' => 'application/json',
+        ];
+
+        $body = '{
+            "code": "3rngaecq55dohh9",
+            "sender": "+983000505",
+            "recipient": "' . $mobile . '",
+            "variable": {
+                "code": "' . $code . '",
+            }
+        }';
+
+        $request = new \GuzzleHttp\Psr7\Request('POST', 'https://api2.ippanel.com/api/v1/sms/pattern/normal/send', $headers, $body);
+        $response = $client->sendAsync($request)->wait();
+
+        echo $response->getBody();
+    }
 }

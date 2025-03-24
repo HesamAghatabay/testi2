@@ -7,9 +7,6 @@
       </div>
       <div class="col-6">
         <div class="col-10">
-          <q-input suffix="@gmail.com" v-model="email" Rounded outlined label="email" />
-        </div>
-        <div class="col-10">
           <q-input
             v-model="password"
             Rounded
@@ -33,37 +30,23 @@
 import { Notify } from 'quasar'
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
+const route = useRoute()
 const router = useRouter()
-const email = ref('')
+const mobile = route.params.number
 const password = ref('')
 const isPwd = ref(true)
 
 function login() {
   api
     .post('/oauth/token', {
-      grant_type: 'password',
-      client_id: 2,
-      client_secret: '3zwKBU7c2pOck6waR6XWrVy6YUxp0lsXFHB5WO6y',
-      username: email.value,
       password: password.value,
-      scope: '*',
     })
     .then((r) => {
-      if (r.data.access_token) {
-        localStorage.setItem('access_token', r.data.access_token)
-        api.defaults.headers = {
-          Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-          'Content-Type': 'application/json',
-          Accept: 'application/json;charset=UTF-8',
-        }
+      if (r.data.status) {
+        r.data
       }
-      Notify.create({
-        type: 'positive',
-        position: 'top',
-        message: 'Login successfull ' + r.data.message,
-      })
       router.push('/profile')
     })
     .catch((e) => {
@@ -71,4 +54,3 @@ function login() {
     })
 }
 </script>
-
