@@ -1,24 +1,37 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <h3>Create Post Page</h3>
-    <q-input label="title" v-model="post.title" Rounded outlined />
-    <q-input label="body" v-model="post.body" Rounded outlined />
-    <q-input label="img" v-model="post.img" Rounded outlined />
-    <q-btn color="orange-8" class="q-mt-sm" label="Create" @click="createpost"/>
+    <h3>Posts Page</h3>
+    <q-inner-loading :showing="loading" size="60px" color="red-9" />
+    <div class="row" v-for="(post, index) in posts" :key="'post' + index">
+      <div class="col-4">
+        <p>{{ post.title }}</p>
+      </div>
+      <div class="col-4">
+        <p>{{ post.body }}</p>
+      </div>
+      <div class="col-4">
+        <q-btn label="Save" @click="save" color="green-7" />
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script setup>
-import { api } from 'src/boot/axios';
-import { reactive } from 'vue'
+import { api } from 'src/boot/axios'
+import { useappData } from 'src/stores/appData'
+import { ref } from 'vue'
 
-const post = reactive({
-  title: null,
-  body: null,
-  post: null,
-})
-function createpost(){
-  api.post('post')
-}
+const posts = ref(null)
+const appData = useappData()
+api
+  .get('api/post')
+  .then((r) => {
+    console.log('data', r.data)
+    posts.value = r.data
+    appData.posts = r.data
+  })
+  .catch((e) => {
+    console.log(e)
+  })
 </script>
