@@ -12,6 +12,7 @@ const routes = [
       { path: 'confirmLogin/:number', component: () => import('pages/ConfirmLogin.vue') },
       { path: 'discover', component: () => import('pages/DiscoverPage.vue') },
       { path: 'posts', component: () => import('pages/PostsPage.vue') },
+      { path: 'edit-post/:id', component: () => import('pages/EditPost.vue') },
       { path: 'create-post', component: () => import('pages/CreatePost.vue') },
     ],
   },
