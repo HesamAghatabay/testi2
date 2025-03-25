@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('title',60);
             $table->string('body');
-            $table->string('writer');
             $table->string('img');
+            $table->string('writer');
             $table->boolean('status')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

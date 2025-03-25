@@ -10,6 +10,8 @@ const routes = [
       { path: 'edit-profile/:id', component: () => import('pages/EditProfile.vue') },
       { path: 'sendVerify', component: () => import('pages/SendVerify.vue') },
       { path: 'confirmLogin/:number', component: () => import('pages/ConfirmLogin.vue') },
+      { path: 'discover', component: () => import('pages/DiscoverPage.vue') },
+      { path: 'create-post', component: () => import('pages/EditPost.vue') },
     ],
   },
 

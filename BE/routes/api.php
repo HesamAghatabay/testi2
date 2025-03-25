@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -14,6 +15,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 Route::resource('register', UserController::class);
 Route::middleware('auth:api')->resource('profile', ProfileController::class);
+Route::middleware('auth:api')->resource('post', PostController::class);
 
 Route::post('/sendVerify', function (Request $request) {
     $code = rand(1000, 9999);

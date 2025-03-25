@@ -6,8 +6,8 @@
     <q-btn label="Login" class="q-mx-sm" color="blue-8" to="/login" />
     <q-btn label="Logout" class="q-mx-sm" color="red-8" @click="logout" />
     <q-btn label="Profile" class="q-mx-sm" color="green-7" to="/profile" />
-    <q-btn label="Send Verify Page" color="purple-7" to="/sendVerify" />
-    <q-btn label="Discover Page" color="orenge-7" to="/discover" />
+    <q-btn label="Send Verify Page" class="q-mx-sm" color="purple-7" to="/sendVerify" />
+    <q-btn label="Discover Page" color="orange-8" @click="$router.push('/discover')" />
   </q-page>
 </template>
 
