@@ -35,6 +35,7 @@ class PostController extends Controller
             'writer' => $request->user()->name,
             'user_id' => $request->user()->id,
         ]);
+        return response()->json(['status' => true], 201);
     }
 
     /**

@@ -11,7 +11,8 @@ const routes = [
       { path: 'sendVerify', component: () => import('pages/SendVerify.vue') },
       { path: 'confirmLogin/:number', component: () => import('pages/ConfirmLogin.vue') },
       { path: 'discover', component: () => import('pages/DiscoverPage.vue') },
-      { path: 'create-post', component: () => import('pages/EditPost.vue') },
+      { path: 'posts', component: () => import('pages/PostsPage.vue') },
+      { path: 'create-post', component: () => import('pages/CreatePost.vue') },
     ],
   },
 
