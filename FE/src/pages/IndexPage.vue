@@ -7,6 +7,7 @@
     <q-btn label="Logout" class="q-mx-sm" color="red-8" @click="logout" />
     <q-btn label="Profile" class="q-mx-sm" color="green-7" to="/profile" />
     <q-btn label="Send Verify Page" color="purple-7" to="/sendVerify" />
+    <q-btn label="Discover Page" color="orenge-7" to="/discover" />
   </q-page>
 </template>
 

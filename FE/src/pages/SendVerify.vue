@@ -35,7 +35,7 @@ function login() {
         position: 'top',
         message: 'Send Verify in catch',
       })
-      console.log(e)
+      console.error(e)
     })
 }
 </script>
