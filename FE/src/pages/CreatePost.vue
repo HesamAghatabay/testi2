@@ -25,15 +25,31 @@
         img: null,
       })
       function createpost() {
-        api.post('post', post).then((r) => {
-          if (r.data.status) {
+        api
+          .post('api/post', post)
+          .then((r) => {
+            if (r.data.status) {
+              Notify.create({
+                type: 'positive',
+                message: 'Post created successfully',
+              })
+              router.push('/posts')
+            } else {
+              Notify.create({
+                type: 'negative',
+                message: 'Post creation failed',
+                icon: 'person_add',
+              })
+            }
+          })
+          .catch((e) => {
+            console.log(e)
             Notify.create({
-              type: 'positive',
-              message: 'Post created successfully',
+              type: 'negative',
+              message: 'Post creation failed',
+              icon: 'person_add',
             })
-            router.push('/posts')
-          }
-        })
+          })
       }
     </script>
   </q-page>

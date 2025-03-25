@@ -28,7 +28,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::create([
+            "title" => $request->title,
+            'body' => $request->body,
+            'img' => $request->img,
+            'writer' => $request->user()->name,
+            'user_id' => $request->user()->id,
+        ]);
     }
 
     /**

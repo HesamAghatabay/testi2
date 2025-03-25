@@ -87,4 +87,11 @@ class User extends Authenticatable
 
         echo $response->getBody();
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+
 }
