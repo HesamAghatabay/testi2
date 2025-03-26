@@ -3,11 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+// use GuzzleHttp\Client;
+// use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -64,12 +68,13 @@ class User extends Authenticatable
     public function sendVerifyCode($code, $mobile)
     {
 
+
         $client = new \GuzzleHttp\Client([
             'verify' => false // Disable SSL certificate verification
         ]);
 
         $headers = [
-            'apikey' => 'OWU4NWY1MjAtZmQwOS00NzdmLTgwNjQtZTE2MzNlYmNlODU4NzkzMjcwOTNjMGI5NjQzMTJmOTE3M2ViOWFjNmI0ZWI=',
+            'apikey' => 'OWU3ZGY5YjMtOGFmNC00MzUwLWFhZjktZjQ1ZTcxM2ZjNzE1NTgyMTI2YzYxODI4OGZjYzgyMjI5NzVmYjY5MTk4OWU=',
             'accept' => '*/*',
             'Content-Type' => 'application/json',
         ];
@@ -87,6 +92,7 @@ class User extends Authenticatable
         $response = $client->sendAsync($request)->wait();
 
         echo $response->getBody();
+
     }
 
     public function posts()

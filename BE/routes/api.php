@@ -4,6 +4,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -38,6 +40,28 @@ Route::post('/sendVerify', function (Request $request) {
     // }
 });
 
+Route::get('testsms', function (Request $request) {
+
+    $client = new Client();
+    $headers = [
+        'apikey' => 'OWU3ZGY5YjMtOGFmNC00MzUwLWFhZjktZjQ1ZTcxM2ZjNzE1NTgyMTI2YzYxODI4OGZjYzgyMjI5NzVmYjY5MTk4OWU=',
+        'accept' => '*/*',
+        'Content-Type' => 'application/json',
+    ];
+    $body = '{
+  "code": "23gu0ju6r9ce99a",
+  "sender": "+983000505",
+  "recipient": "+989398175140",
+  "variable": {
+    "code": "1234"
+  }
+}';
+    $request = new Psr7Request('POST', 'https://api2.ippanel.com/api/v1/sms/pattern/normal/send', $headers, $body);
+    $res = $client->sendAsync($request)->wait();
+    echo $res->getBody();
+
+
+});
 
 
 
