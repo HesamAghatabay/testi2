@@ -30,12 +30,12 @@ Route::post('/sendVerify', function (Request $request) {
             'password' => Hash::make($code),
         ]);
     }
-    // return $user->sendVerifyCode($code, $request->username);
-    if ($user->sendVerifyCode($code, $request->username)) {
-        return response()->json(['status' => true], 200);
-    } else {
-        return response()->json(['status' => false, 'message' => 'sms faild'], 400);
-    }
+    return $user->sendVerifyCode($code, $request->username);
+    // if ($user->sendVerifyCode($code, $request->username)) {
+    //     return response()->json(['status' => true], 200);
+    // } else {
+    //     return response()->json(['status' => false, 'message' => 'sms faild'], 400);
+    // }
 });
 
 

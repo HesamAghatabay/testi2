@@ -33,7 +33,7 @@ function login() {
       Notify.create({
         type: 'negative',
         position: 'top',
-        message: 'Send Verify in catch',
+        message: 'Send Verify in catch '+e.message,
       })
       console.error(e)
     })

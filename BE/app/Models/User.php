@@ -63,18 +63,19 @@ class User extends Authenticatable
 
     public function sendVerifyCode($code, $mobile)
     {
+
         $client = new \GuzzleHttp\Client([
             'verify' => false // Disable SSL certificate verification
         ]);
 
         $headers = [
-            'apikey' => 'OWU3ZGY5YjMtOGFmNC00MzUwLWFhZjktZjQ1ZTcxM2ZjNzE1NTgyMTI2YzYxODI4OGZjYzgyMjI5NzVmYjY5MTk4OWU==',
+            'apikey' => 'OWU4NWY1MjAtZmQwOS00NzdmLTgwNjQtZTE2MzNlYmNlODU4NzkzMjcwOTNjMGI5NjQzMTJmOTE3M2ViOWFjNmI0ZWI=',
             'accept' => '*/*',
             'Content-Type' => 'application/json',
         ];
 
         $body = '{
-            "code": "23gu0ju6r9ce99a",
+            "code": "3rngaecq55dohh9",
             "sender": "+983000505",
             "recipient": "' . $mobile . '",
             "variable": {
