@@ -26,8 +26,8 @@ Route::post('/sendVerify', function (Request $request) {
         $user->save();
     } else {
         $user = User::create([
-            'name' => '',
-            'email' => '',
+            'name' => null,
+            'email' => null,
             'mobile' => $request->username,
             'password' => Hash::make($code),
         ]);

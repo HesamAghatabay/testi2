@@ -4,6 +4,8 @@
     <q-inner-loading :showing="loading" color="red-8" size="65px" />
     <div class="row q-ma-md">
       <div class="col-4">
+        <p>{{ user?.name || ' نام وجود ندارد ' }}</p>
+        <p>{{ user?.mobile || ' شماره وجود ندارد ' }}</p>
         <p>{{ user?.profile.full_name || ' کاربر وجود ندارد ' }}</p>
         <p>{{ user?.profile.address || 'آدرس وارد نشده' }}</p>
         <p>{{ user?.profile.city || 'شهر ثبت نشده' }}</p>

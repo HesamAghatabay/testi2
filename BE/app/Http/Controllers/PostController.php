@@ -36,6 +36,9 @@ class PostController extends Controller
             'writer' => $request->user()->name,
             'user_id' => $request->user()->id,
         ]);
+        if (!$post) {
+            return response()->json(['status' => false, 'message' => 'create post faild!'], 400);
+        }
         return response()->json(['status' => true], 201);
     }
 

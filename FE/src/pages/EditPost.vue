@@ -18,20 +18,50 @@
 </template>
 
 <script setup>
+import { Notify } from 'quasar'
 import { api } from 'src/boot/axios'
 import { useappData } from 'src/stores/appData'
-import { ref } from 'vue'
+import { onMounted, reactive } from 'vue'
+import { useRoute } from 'vue-router'
 
-const posts = ref(null)
+const route = useRoute()
 const appData = useappData()
-api
-  .get('api/post')
-  .then((r) => {
-    console.log('data', r.data)
-    posts.value = r.data
-    appData.posts = r.data
-  })
-  .catch((e) => {
-    console.log(e)
-  })
+const post = reactive({
+  title: null,
+  body: null,
+  img: null,
+})
+
+onMounted(() => {
+  if (appData.posts.length > 0) {
+    post.title = appData.posts[appData.currentPostIndex].title
+    post.title = appData.posts[appData.currentPostIndex].title
+  } else {
+    fetchpost()
+  }
+})
+function fetchpost() {
+  api
+    .get('api/post/' + route.params.id)
+    .then((r) => {
+      console.log('data', r.data)
+      post.title = r.data.title
+      post.body = r.data.body
+      post.img = r.data.img
+    })
+    .catch((e) => {
+      console.log(e.status)
+      if (e.status === 401) {
+        localStorage.removeItem('access_token')
+        window.location.href = '/'
+      }
+      if (e.status === 500) {
+        Notify.create({
+          type: 'negative',
+          message: 'Server error',
+          icon: 'error',
+        })
+      }
+    })
+}
 </script>
