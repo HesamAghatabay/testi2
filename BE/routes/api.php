@@ -38,6 +38,8 @@ Route::post('/sendVerify', function (Request $request) {
     // } else {
     //     return response()->json(['status' => false, 'message' => 'sms faild'], 400);
     // }
+
+    
 });
 
 Route::get('testsms', function (Request $request) {
