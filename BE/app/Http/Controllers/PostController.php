@@ -47,7 +47,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return $post;
     }
 
     /**
@@ -63,7 +63,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+
+        $post->update([
+            'title'=> $request->title,
+            'body'=> $request->body,
+        ]);
+
+        return response()->json(['status' => true], 200);
     }
 
     /**

@@ -5,7 +5,7 @@
     <q-inner-loading :showing="loading" size="60px" color="red-9" />
 
     <div class="row text-center q-gutter-md">
-      <div class="col-3" v-for="(post, index) in posts" :key="'post' + index">
+      <div class="col-2" v-for="(post, index) in posts" :key="'post' + index">
         <q-card>
           <q-card-section>
             <h3>{{ post.title }}</h3>

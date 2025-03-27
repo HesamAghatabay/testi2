@@ -1,19 +1,11 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <h3>Posts Page</h3>
+    <h3>Edit Posts Page</h3>
     <q-inner-loading :showing="loading" size="60px" color="red-9" />
-    <div class="row" v-for="(post, index) in posts" :key="'post' + index">
-      <div class="col-4">
-        <p>{{ post.title }}</p>
-      </div>
-      <div class="col-4">
-        <p>{{ post.body }}</p>
-      </div>
-      <div class="col-4">
-        <q-btn label="Save" @click="save" color="green-7" />
-      </div>
-    </div>
+    <q-input v-model="post.title" placeholder="Post title" />
+    <q-input v-model="post.body" placeholder="Post body" type="textarea" />
+    <q-btn @click="savePost" label="save Post" color="primary" class="full-width q-mt-sm" rounded />
   </q-page>
 </template>
 
@@ -22,9 +14,10 @@ import { Notify } from 'quasar'
 import { api } from 'src/boot/axios'
 import { useappData } from 'src/stores/appData'
 import { onMounted, reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const appData = useappData()
 const post = reactive({
   title: null,
@@ -34,8 +27,10 @@ const post = reactive({
 
 onMounted(() => {
   if (appData.posts.length > 0) {
+    post.id = appData.posts[appData.currentPostIndex].id
     post.title = appData.posts[appData.currentPostIndex].title
-    post.title = appData.posts[appData.currentPostIndex].title
+    post.body = appData.posts[appData.currentPostIndex].body
+    post.img = appData.posts[appData.currentPostIndex].img
   } else {
     fetchpost()
   }
@@ -62,6 +57,28 @@ function fetchpost() {
           icon: 'error',
         })
       }
+    })
+}
+function savePost() {
+  api
+    .put('api/post/' + post.id, post)
+    .then((r) => {
+      if (r.data.status) {
+        Notify.create({
+          type: 'positive',
+          message: 'Post created successfully',
+        })
+        router.push('posts')
+      } else {
+        Notify.create({ type: 'negative', message: 'Post creation failed' })
+      }
+    })
+    .catch((e) => {
+      console.log(e)
+      Notify.create({
+        type: 'negative',
+        message: 'Post creation failed',
+      })
     })
 }
 </script>
