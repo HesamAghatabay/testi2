@@ -65,8 +65,8 @@ class PostController extends Controller
     {
 
         $post->update([
-            'title'=> $request->title,
-            'body'=> $request->body,
+            'title' => $request->title,
+            'body' => $request->body,
         ]);
 
         return response()->json(['status' => true], 200);
@@ -77,6 +77,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return response()->json(['status' => true], 200);   
     }
 }

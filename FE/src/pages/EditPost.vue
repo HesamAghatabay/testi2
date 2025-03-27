@@ -61,14 +61,14 @@ function fetchpost() {
 }
 function savePost() {
   api
-    .put('api/post/' + post.id, post)
+    .put('api/post/' + route.params.id, post)
     .then((r) => {
       if (r.data.status) {
         Notify.create({
           type: 'positive',
           message: 'Post created successfully',
         })
-        router.push('posts')
+        router.push('/posts')
       } else {
         Notify.create({ type: 'negative', message: 'Post creation failed' })
       }
