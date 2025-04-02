@@ -1,4 +1,4 @@
-<template>
+  <template>
   <q-page padding class="q-gutter-y-md text-center">
     <!-- content -->
     <h1>Welcome</h1>

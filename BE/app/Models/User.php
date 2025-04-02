@@ -78,14 +78,14 @@ class User extends Authenticatable
             'apikey' => 'OWU4NjNkYzItNGI4NS00YWFkLWFlODMtZWFhN2FjZTMxNmRjNDdiNDE3MDI4ZWViNDYyOTRhMGI2YWJkODcwZmFjMGE=',
             'accept' => '*/*',
             'Content-Type' => 'application/json',
-            
+
         ];
         $body = '{
   "code": "23gu0ju6r9ce99a",
   "sender": "+983000505",
-  "recipient": "'.$mobile.'",
+  "recipient": "' . $mobile . '",
   "variable": {
-    "code": "'.$code.'"
+    "code": "' . $code . '"
   }
 }';
         $request = new Request('POST', 'https://api2.ippanel.com/api/v1/sms/pattern/normal/send', $headers, $body);
